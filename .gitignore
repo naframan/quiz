@@ -1,0 +1,4 @@
+# carpeta con los modulos necesarios para express
+node_modules
+#archivo de log de las instalaciones
+npm-debug.log
