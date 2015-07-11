@@ -4,6 +4,10 @@ body                          { font: 16x Georgia, serif; }
 #page-wrap > .main            { border: 1px solid #999; padding: 1%; margin-bottom: 1px; color: black; }
 
 section > div                 { padding: 20px; }
-header, nav, section, footer  { background: #eee; text-align: center}
+header, section, footer       { background: #eee; text-align: center; }
+nav                           { background: #eee; text-align: left; }
+footer                        { font-size: 60%; }
 nav span                      { margin: 0px 10px 0px 0px; }
+p                             { text-align: left; }
 #logoGit                      { width: 30px; height: 30px; }
+#fotoAut                      { float: left; width: 100px; heigth: 100px; padding: 0px 10px 0px 0px;}
