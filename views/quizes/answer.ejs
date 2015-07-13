@@ -1,3 +1,4 @@
-<p><%= respuesta %> </p>
-<a href="../quizes/question">Intentelo otra vez</a>
-<br/>
+<p>Su respuesta ha sido:  <%= user_res %></p>
+<p>Y esta respuesta es <%= respuesta %>
+  <a href="/quizes/<%= quiz.id %>">Volver</a>
+</p>
