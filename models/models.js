@@ -42,6 +42,22 @@ sequelize.sync().success(function() {
         respuesta: 'Roma'
       });
       Quiz.create({
+        pregunta: 'Capital de Francia',
+        respuesta: 'París'
+      });
+      Quiz.create({
+        pregunta: 'Capital de España',
+        respuesta: 'Madrid'
+      });
+      Quiz.create({
+        pregunta: 'En que año se firmo el tratado de paz de Utrech',
+        respuesta: '1713'
+      });
+      Quiz.create({
+        pregunta: 'En que año descubrió América Cristobal Colón',
+        respuesta: '1492'
+      });
+      Quiz.create({
         pregunta: 'Capital de Portugal',
         respuesta: 'Lisboa'
       }).then(function() {console.log('Base de datos inicializada')});
