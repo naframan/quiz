@@ -25,7 +25,7 @@ exports.index = function(req, res) {
   if (!str) {
   if (debug) console.log('Mensaje consola:index vacio!');
     models.Quiz.findAll().then(function(quizes) {
-      res.render('quizes/index.ejs', { quizes: quizes});
+      res.render('quizes/index.ejs', { quizes: quizes, errors: []});
     }).catch(function (error) {
       next(error);
     });
@@ -37,7 +37,7 @@ exports.index = function(req, res) {
       order: ['pregunta']
     }).then(function(quizes) {
       if (debug) console.log('Mensaje consola: GOTCHA!');
-      res.render('quizes/index.ejs', { quizes: quizes});
+      res.render('quizes/index.ejs', { quizes: quizes, errors: []});
     }).catch(function (error) {
       next(error);
     });
@@ -48,7 +48,7 @@ exports.index = function(req, res) {
 // GET /quizes/:quizId
 exports.show = function (req, res) {
   if (debug) console.log('Mensaje consola:show');
-  res.render('quizes/show', { quiz: req.quiz});
+  res.render('quizes/show', { quiz: req.quiz, errors: []});
 };
 
 // GET /quizes/:quizId/answer
@@ -58,7 +58,7 @@ exports.answer = function (req, res) {
   if (req.query.respuesta === req.quiz.respuesta) {
       resultado = '¡Correcta!';
     }
-    res.render('quizes/answer', { user_res: req.query.respuesta, quiz: req.quiz, respuesta: resultado});
+    res.render('quizes/answer', { user_res: req.query.respuesta, quiz: req.quiz, respuesta: resultado, errors: []});
 };
 
 
@@ -67,16 +67,25 @@ exports.new = function(req, res) {
   var quiz = models.Quiz.build( // crea objeto quiz
     { pregunta: "Pregunta", respuesta: "Respuesta" }
   );
-  res.render('quizes/new', { quiz: quiz});
+  res.render('quizes/new', { quiz: quiz, errors: []});
 }
 
 exports.create = function(req, res) {
   var quiz = models.Quiz.build( req.body.quiz );
 
-  // guarda en DB los campos pregunta y respuesta de quiz
-  quiz.save({ fields: ["pregunta", "respuesta"]}).then(function (){
-   res.redirect ('/quizes');
- })   // Redireccion HTTP (URL relativo) lista de preguntas
+  quiz.
+  validate()
+  .then(
+    function(err) {
+      if (err) {
+        res.render('quizes/new', { quiz: quiz, errors: err.errors});
+      }  else {
+        // guarda en DB los campos pregunta y respuesta de quiz
+        quiz.save({ fields: ["pregunta", "respuesta"]}).then(function (){
+         res.redirect ('/quizes')});
+      }
+    }
+  );   // Redireccion HTTP (URL relativo) lista de preguntas
 };
 /*
   res.locals.expReg = /^rom[ae]$/i;

@@ -11,3 +11,5 @@ nav div                       { margin: 0px 10px 0px 0px; }
 p                             { text-align: left; }
 #logoGit                      { width: 30px; height: 30px; }
 #fotoAut                      { float: left; width: 100px; heigth: 100px; padding: 0px 10px 0px 0px;}
+nav span                      { margin:  0px 10px 0px 0px; }
+#ErrorMsgs                    { color: #f61;, font-size: smaller; }
