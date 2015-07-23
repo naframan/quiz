@@ -53,7 +53,7 @@ exports.show = function (req, res) {
 
 // GET /quizes/:quizId/answer
 exports.answer = function (req, res) {
-  if (debug) console.log('Mensaje consola:Mondongo!');
+  if (debug) console.log('Mensaje consola: answer!');
   var resultado = '¡Incorrecta!';
   if (req.query.respuesta === req.quiz.respuesta) {
       resultado = '¡Correcta!';
@@ -65,7 +65,7 @@ exports.answer = function (req, res) {
 // GET /quizes/new
 exports.new = function(req, res) {
   var quiz = models.Quiz.build( // crea objeto quiz
-    { pregunta: "Pregunta", respuesta: "Respuesta" }
+    { pregunta: "Pregunta", respuesta: "Respuesta" , tema: ""}
   );
   res.render('quizes/new', { quiz: quiz, errors: []});
 }
@@ -81,7 +81,7 @@ exports.create = function(req, res) {
         res.render('quizes/new', { quiz: quiz, errors: err.errors});
       }  else {
         // guarda en DB los campos pregunta y respuesta de quiz
-        quiz.save({ fields: ["pregunta", "respuesta"]}).then(function (){
+        quiz.save({ fields: ["pregunta", "respuesta", "tema"]}).then(function (){
          res.redirect ('/quizes')});
       }
     }
@@ -100,6 +100,9 @@ exports.edit = function(req, res) {
 exports.update = function(req, res) {
   req.quiz.pregunta = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tema = req.body.quiz.tema;
+
+  if (debug) console.log(req.quiz.tema);
 
   req.quiz
   .validate()
@@ -109,7 +112,7 @@ exports.update = function(req, res) {
         res.render('quizes/edit', { quiz: req.quiz, errors: err.errors});
       } else {
         req.quiz
-        .save( { fields: ["pregunta", "respuesta"]})
+        .save( { fields: ["pregunta", "respuesta", "tema"]})
         .then( function() { res.redirect('/quizes');});
       }  // Redriección HTTP a las listas de preguntas
     }

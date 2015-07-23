@@ -39,27 +39,33 @@ sequelize.sync().then(function() {  // cambio success por then
     if(count === 0) {     // la tabla se inicializa solo si est vacía
       Quiz.create({
         pregunta: 'Capital de Italia',
-        respuesta: 'Roma'
+        respuesta: 'Roma',
+        tema: 'ocio'
       });
       Quiz.create({
         pregunta: 'Capital de Francia',
-        respuesta: 'París'
+        respuesta: 'París',
+        tema: 'ocio'
       });
       Quiz.create({
         pregunta: 'Capital de España',
-        respuesta: 'Madrid'
+        respuesta: 'Madrid',
+        tema: 'ocio'
       });
       Quiz.create({
         pregunta: 'En que año se firmo el tratado de paz de Utrech',
-        respuesta: '1713'
+        respuesta: '1713',
+        tema: 'humanidades'
       });
       Quiz.create({
         pregunta: 'En que año descubrió América Cristobal Colón',
-        respuesta: '1492'
+        respuesta: '1492',
+        tema: 'humanidades'
       });
       Quiz.create({
         pregunta: 'Capital de Portugal',
-        respuesta: 'Lisboa'
+        respuesta: 'Lisboa',
+        tema: 'ocio'
       }).then(function() {console.log('Base de datos inicializada')});
     };
   });
