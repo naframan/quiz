@@ -2,8 +2,8 @@
 body                          { font: 16x Georgia, serif; }
 #page-wrap                    { margin: 2% auto; color: white; }
 #page-wrap > .main            { border: 1px solid #999; padding: 1%; margin-bottom: 1px; color: black; }
-
 section > div                 { padding: 20px; }
+.right  > a                   { float: right; }
 header, section, footer       { background: #eee; text-align: center; }
 nav                           { background: #eee; text-align: left; }
 footer                        { font-size: 60%; }
