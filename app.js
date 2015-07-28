@@ -11,6 +11,9 @@ var session = require('express-session');
 
 var app = express();
 
+var tiempo = 120000;
+var debug = 0;
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,6 +29,23 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(partials());
 
+app.use(function(req, res, next) {
+  if (req.session.user) {
+    if (!req.session.cookie.expires) {
+      req.session.cookie.expires =  new Date(Date.now() + tiempo);
+      if (debug) console.log('COOKIE SETEADA');
+    } else if (req.session.cookie.expires && req.session.cookie.expires >= Date.now()) {
+      req.session.cookie.expires =  new Date(Date.now() + tiempo);
+      if (debug) console.log('COOKIE INCREMENTADA');
+    } else {  // Por aquí nunca pasa, al poner que expira se autodestruye, sesion incluida!
+      if (debug) console.log('COOKIE DESTRUIDA');
+      delete req.session.cookie.expires;
+      delete req.session.user;
+    }
+  }
+  next();
+});
+
 // Helpers dinamicos:
 app.use(function(req, res, next) {
 
@@ -35,7 +55,6 @@ app.use(function(req, res, next) {
   }
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
-  //console.log(req.session.cookie);
   next();
 });
 

@@ -1,5 +1,5 @@
 var models = require('../models/models.js');
-var debug = 1;
+var debug = 0;
 
 // Autolad - factoriza el código si la ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
